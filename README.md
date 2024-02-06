@@ -1,41 +1,66 @@
-# Plateforme de Communication et de Marketing
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-Notre client est une entreprise en pleine croissance dans le secteur de la communication et du marketing. Ayant constaté un besoin croissant de centraliser et de rationaliser ses opérations en ligne, l'entreprise a décidé de développer une plateforme web interne intégrant des fonctionnalités avancées pour améliorer la communication, la gestion de l'information et la collaboration au sein de l'équipe.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## Fonctionnalités Principales
+## About Laravel
 
-### Gestion de Newsletter (Spatie)
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-La plateforme permet à l'entreprise d'envoyer des newsletters régulières à ses clients et partenaires. L'intégration du package Spatie Newsletter facilite la création, l'envoi et le suivi des campagnes de newsletters. Les fonctionnalités de gestion des abonnements et des listes de diffusion sont intuitives et conviviales.
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-### Authentification avec Gestion des Rôles (Policies et Guards)
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-La sécurité et la confidentialité des données sont primordiales. Le système d'authentification robuste avec gestion des rôles basée sur les politiques et les gardes de Laravel est implémenté. Trois rôles distincts sont définis : Administrateur, Rédacteur et Membre. Chaque rôle a des autorisations spécifiques pour accéder et modifier certaines parties de la plateforme.
+## Learning Laravel
 
-### Fonctionnalités Forgot Password et Remember Me
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-La plateforme inclut les fonctionnalités "forgot password" pour permettre aux utilisateurs de réinitialiser leur mot de passe, ainsi que la fonction "remember me" pour faciliter la connexion automatique, assurant ainsi une expérience utilisateur fluide.
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-### Media Library (Spatie)
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-La gestion de médias est simplifiée grâce à Spatie Media Library. Les utilisateurs peuvent télécharger, organiser et partager des fichiers multimédias tels que des images, des vidéos et des documents. Chaque média est associé à un utilisateur ou à un projet spécifique.
+## Laravel Sponsors
 
-### Soft Delete
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-Pour éviter la perte accidentelle de données, la plateforme met en œuvre la fonctionnalité "soft delete". Cela signifie que les enregistrements ne sont pas supprimés physiquement de la base de données, mais plutôt marqués comme supprimés, offrant ainsi la possibilité de les restaurer si nécessaire.
+### Premium Partners
 
-### Middleware
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[OP.GG](https://op.gg)**
+- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+- **[Lendio](https://lendio.com)**
 
-Des middleware sont mis en place pour gérer les autorisations spécifiques aux rôles. Cela garantit que chaque utilisateur a accès uniquement aux fonctionnalités qui lui sont autorisées en fonction de son rôle.
+## Contributing
 
-### Génération PDF
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-La plateforme peut générer des fichiers PDF à partir de données spécifiques, comme un rapport mensuel agrégeant les performances des campagnes de newsletters ou un récapitulatif des médias téléchargés sur une période donnée.
+## Code of Conduct
 
-### Modélisation avec 3 Rôles
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-La base de données est modélisée pour prendre en charge les trois rôles définis (Administrateur, Rédacteur, Membre). Chaque rôle a des tables et des relations spécifiques, assurant ainsi une séparation claire des données et des responsabilités au sein de la plateforme.
+## Security Vulnerabilities
 
-## Conclusion
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-En intégrant ces fonctionnalités, la plateforme offre à notre client une solution complète et personnalisée pour répondre à ses besoins internes en matière de communication, de collaboration et de gestion d'informations.
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
