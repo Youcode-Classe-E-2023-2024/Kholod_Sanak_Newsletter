@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\LoginController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +26,18 @@ Route::get('/', function () {
 Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisterController::class, 'store'])->name('register');
 
+//login
+Route::get('/login', [LoginController::class, 'create']);
+Route::post('/login', [LoginController::class, 'store'])->name('login');
+
+
+
 //logout
 Route::post('/logout', [Logoutcontroller::class, 'destroy'])->name('logout')
     ->middleware('auth');
 
 Route::view('/home','home')->name('home');
-Route::view('/login', 'login')->name('login');
+//Route::view('/login', 'login')->name('login');
 //Route::view('/register', 'register')->name('register');
 
 //admin pages
