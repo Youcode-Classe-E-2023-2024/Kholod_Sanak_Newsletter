@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//register
+Route::get('/register', [RegisterController::class, 'create']);
+Route::post('/register', [RegisterController::class, 'store'])->name('register');
+
+//logout
+Route::post('/logout', [Logoutcontroller::class, 'destroy'])->name('logout')
+    ->middleware('auth');
+
 Route::view('/home','home')->name('home');
 Route::view('/login', 'login')->name('login');
-Route::view('/register', 'register')->name('register');
+//Route::view('/register', 'register')->name('register');
 
 //admin pages
 Route::view('/adminDashboard','admin.dashboard' )->name('adminDashboard');
