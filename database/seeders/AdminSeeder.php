@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -16,6 +17,10 @@ class AdminSeeder extends Seeder
     public function run()
     {
         $user = User::find(1);
+        $user->givePermissionTo('assign roles');
+
         $user->assignRole('admin');
     }
+
+
 }
