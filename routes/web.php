@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordLinkController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\NewsletterController;
+
 
 
 
@@ -30,7 +32,11 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 Route::get('/', function () {
     return view('home');
 });
-Route::view('/home','home')->name('home');
+Route::get('/home',[NewsletterController
+::class, 'index'])->name('home');
+
+Route::post('/subscribe',[NewsletterController
+::class,'subscribe']);
 
 /*
 |--------------------------------------------------------------------------
