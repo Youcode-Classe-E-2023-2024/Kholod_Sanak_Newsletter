@@ -5,9 +5,12 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Role;
+use App\Models\User;
+
 
 class RoleSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -19,8 +22,6 @@ class RoleSeeder extends Seeder
         $userRole = Role::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
         $editorRole = Role::firstOrCreate(['name' => 'editor', 'guard_name' => 'web']);
 
-
-
-
     }
+
 }
