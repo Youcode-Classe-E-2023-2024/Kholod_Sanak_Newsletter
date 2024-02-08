@@ -94,6 +94,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drewm/mailchimp-api' => array(
+            'pretty_version' => 'v2.5.4',
+            'version' => '2.5.4.0',
+            'reference' => 'c6cdfab4ca6ddbc3b260913470bd0a4a5cb84c7a',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../drewm/mailchimp-api',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'egulias/email-validator' => array(
             'pretty_version' => '3.2.6',
             'version' => '3.2.6.0',
@@ -1000,6 +1009,15 @@
             'install_path' => __DIR__ . '/../spatie/laravel-ignition',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'spatie/laravel-newsletter' => array(
+            'pretty_version' => '4.11.0',
+            'version' => '4.11.0.0',
+            'reference' => '25e456abecaba25e20d1c11e934bdc3f89601245',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/laravel-newsletter',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'spatie/laravel-permission' => array(
             'pretty_version' => '6.3.0',
