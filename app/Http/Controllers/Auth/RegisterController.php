@@ -60,6 +60,9 @@ class RegisterController extends Controller
         ]);
 
         Auth::login($user);
+        $user->assignRole('editor');
+
+
 
         return redirect(RouteServiceProvider::LOGIN);
     }
