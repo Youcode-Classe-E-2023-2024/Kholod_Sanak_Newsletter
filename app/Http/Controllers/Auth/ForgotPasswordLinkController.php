@@ -19,7 +19,6 @@ class ForgotPasswordLinkController extends Controller
     {
         return view('password.email');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -27,19 +26,14 @@ class ForgotPasswordLinkController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-
     {
-        //dd($request);
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email'
         ]);
-
-
-        $status = Password::sendResetLink($request->only('email'));
-
+       $status = Password::sendResetLink($request->only('email'));
 
         return $status === Password::RESET_LINK_SENT
-            ? back()->with('status', __($status))
+            ? redirect()->route('password.success')
             : back()->withInput($request->only('email'))->withErrors(['email' => __($status)]);
     }
 
