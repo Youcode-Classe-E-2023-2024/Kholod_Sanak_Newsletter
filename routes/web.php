@@ -21,58 +21,92 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 |
 */
 
+
+/*
+|--------------------------------------------------------------------------
+|                                Homepage
+|--------------------------------------------------------------------------
+*/
 Route::get('/', function () {
     return view('home');
 });
+Route::view('/home','home')->name('home');
 
-//register
+/*
+|--------------------------------------------------------------------------
+|                                Register
+|--------------------------------------------------------------------------
+*/
 Route::get('/register', [RegisterController::class, 'create'])
     ->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->name('register');
 
-//login
+/*
+|--------------------------------------------------------------------------
+|                                Login
+|--------------------------------------------------------------------------
+*/
 Route::get('/login', [LoginController::class, 'create'])
     ->middleware('guest');
-
 Route::post('/login', [LoginController::class, 'store'])->name('login');
 
+/*
+|--------------------------------------------------------------------------
+|                                Forgot password
+|                                 enter & send email
+|--------------------------------------------------------------------------
+*/
 //success page email has been sent
 Route::get('/reset-password/success', function () {
     return view('password.success');
 })->name('password.success');
-
 // Route for showing the form to enter the email
 Route::get('/forgot-password', [ForgotPasswordLinkController::class, 'create'])
     ->name('password.request');
-
 // Route for handling form submission
 Route::post('/forgot-password', [ForgotPasswordLinkController::class, 'store'])
     ->name('password.email');
 
+/*
+|--------------------------------------------------------------------------
+|                                Forgot password
+|                                 reset password
+|--------------------------------------------------------------------------
+*/
 // Display the password reset form
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])
     ->name('password.reset');
-
-
 // Process the password reset form submission
 Route::post('/reset-password/{token}', [ForgotPasswordController::class, 'reset'])
     ->name('password.update');
 
-//logout
+
+/*
+|--------------------------------------------------------------------------
+|                                Logout
+|--------------------------------------------------------------------------
+*/
 Route::post('/logout', [Logoutcontroller::class, 'destroy'])->name('logout')
     ->middleware('auth');
 
 
 
-Route::view('/home','home')->name('home');
 
-
+/*
+|--------------------------------------------------------------------------
+|                                Admin Dashboard
+|--------------------------------------------------------------------------
+*/
 //admin pages
 Route::view('/adminDashboard','admin.dashboard' )->name('adminDashboard')->middleware('auth');
 Route::view('/usersList','admin.users' )->name('usersList');
 Route::view('/subsList','admin.subs')->name('subsList');
 Route::view('/templates','admin.template')->name('templates');
-
+/*
+|--------------------------------------------------------------------------
+|                                Writer Dashboard
+|--------------------------------------------------------------------------
+*/
 //writer pages
 Route::view('/writerDashboard','writer.dashboard' )->name('writerDashboard')->middleware('auth');
 Route::view('/writerSubsList','writer.subs')->name('writerSubsList');
