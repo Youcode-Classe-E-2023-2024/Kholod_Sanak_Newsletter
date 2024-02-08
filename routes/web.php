@@ -68,7 +68,7 @@ Route::view('/home','home')->name('home');
 
 
 //admin pages
-Route::view('/adminDashboard','admin.dashboard' )->name('adminDashboard');
+Route::view('/adminDashboard','admin.dashboard' )->name('adminDashboard')->middleware('auth');
 Route::view('/usersList','admin.users' )->name('usersList');
 Route::view('/subsList','admin.subs')->name('subsList');
 Route::view('/templates','admin.template')->name('templates');
