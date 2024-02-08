@@ -10,12 +10,29 @@ use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
 {
-    public function reset(Request $request)
+    /**
+     * Show the form for resetting the password.
+     *
+     * @param  string  $token
+     * @return \Illuminate\Http\Response
+     */
+    public function showResetForm($token)
+    {
+        return view('password.reset', ['token' => $token]);
+    }
+
+    /**
+     * Reset the user's password.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $token
+     * @return \Illuminate\Http\Response
+     */
+    public function reset(Request $request, $token)
     {
         $request->validate([
-            'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|string|confirmed|min:8',
+            'password' => 'required|confirmed|min:8',
         ]);
 
         $status = Password::reset(
@@ -23,13 +40,11 @@ class ForgotPasswordController extends Controller
             function ($user, $password) {
                 $user->forceFill([
                     'password' => Hash::make($password),
-                    'remember_token' => Str::random(60)
                 ])->save();
             }
         );
 
-
-        return $status == Password::PASSWORD_RESET
+        return $status === Password::PASSWORD_RESET
             ? redirect()->route('login')->with('status', __($status))
             : back()->withInput($request->only('email'))->withErrors(['email' => __($status)]);
     }
