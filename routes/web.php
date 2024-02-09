@@ -43,8 +43,7 @@ Route::post('/subscribe',[NewsletterController
 |                                Register
 |--------------------------------------------------------------------------
 */
-Route::get('/register', [RegisterController::class, 'create'])
-    ->middleware('guest');
+Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisterController::class, 'store'])->name('register');
 
 /*
@@ -52,8 +51,7 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register')
 |                                Login
 |--------------------------------------------------------------------------
 */
-Route::get('/login', [LoginController::class, 'create'])
-    ->middleware('guest');
+Route::get('/login', [LoginController::class, 'create']);
 Route::post('/login', [LoginController::class, 'store'])->name('login');
 
 /*
@@ -98,23 +96,42 @@ Route::post('/logout', [Logoutcontroller::class, 'destroy'])->name('logout')
 
 
 
+
+
+
 /*
 |--------------------------------------------------------------------------
 |                                Admin Dashboard
 |--------------------------------------------------------------------------
 */
 //admin pages
-Route::view('/adminDashboard','admin.dashboard' )->name('adminDashboard')->middleware('auth');
-Route::view('/usersList','admin.users' )->name('usersList');
-Route::view('/subsList','admin.subs')->name('subsList');
-Route::view('/templates','admin.template')->name('templates');
+
+Route::get('/adminDashboard', function () {
+    return view('admin.dashboard');
+})->name('adminDashboard')->middleware('auth', 'role:admin');
+
+
+Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore users'])->group(function () {
+    Route::view('/usersList', 'admin.users')->name('usersList');
+    Route::view('/subsList', 'admin.subs')->name('subsList');
+    Route::view('/templates', 'admin.template')->name('templates');
+});
 /*
 |--------------------------------------------------------------------------
 |                                Writer Dashboard
 |--------------------------------------------------------------------------
 */
 //writer pages
-Route::view('/writerDashboard','writer.dashboard' )->name('writerDashboard')->middleware('auth');
+//Route::view('/writerDashboard','writer.dashboard' )->name('writerDashboard')->middleware('auth');
+Route::get('/writerDashboard', function () {
+    return view('writer.dashboard');
+})->name('writerDashboard')->middleware('auth', 'role:editor');
+
+
+//Route::middleware(['auth', 'role:editor'])->group(function () {
+//    Route::view('/writerDashboard', 'writer.dashboard')->name('writerDashboard');
+//});
+
 Route::view('/writerSubsList','writer.subs')->name('writerSubsList');
 Route::view('/media','writer.media')->name('media');
 Route::view('/template','writer.template')->name('template');
