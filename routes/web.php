@@ -104,8 +104,7 @@ Route::post('/logout', [Logoutcontroller::class, 'destroy'])->name('logout')
 |                                Admin Dashboard
 |--------------------------------------------------------------------------
 */
-//admin pages
-
+//redirect admin to the dashboard admin
 Route::get('/adminDashboard', function () {
     return view('admin.dashboard');
 })->name('adminDashboard')->middleware('auth', 'role:admin');
@@ -121,16 +120,12 @@ Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore 
 |                                Writer Dashboard
 |--------------------------------------------------------------------------
 */
-//writer pages
-//Route::view('/writerDashboard','writer.dashboard' )->name('writerDashboard')->middleware('auth');
+//redirect editor to the dashboard writer
 Route::get('/writerDashboard', function () {
     return view('writer.dashboard');
 })->name('writerDashboard')->middleware('auth', 'role:editor');
 
 
-//Route::middleware(['auth', 'role:editor'])->group(function () {
-//    Route::view('/writerDashboard', 'writer.dashboard')->name('writerDashboard');
-//});
 
 Route::view('/writerSubsList','writer.subs')->name('writerSubsList');
 Route::view('/media','writer.media')->name('media');
