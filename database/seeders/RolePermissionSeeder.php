@@ -4,9 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 
 class RolePermissionSeeder extends Seeder
@@ -27,17 +26,33 @@ class RolePermissionSeeder extends Seeder
         $assignRolesPermission = Permission::where('name', 'assign roles')->first();
         $deleteUsersPermission = Permission::where('name', 'delete users')->first();
         $restoreUsersPermission = Permission::where('name', 'restore users')->first();
-        // Repeat the same for other permissions...
+        $createTemplatesPermission = Permission::where('name', 'create templates')->first();
+        $sendTemplatesPermission = Permission::where('name', 'send templates')->first();
+        $trackTemplatesPermission = Permission::where('name', 'track templates')->first();
+        $addMediasPermission = Permission::where('name', 'add medias')->first();
+        $downloadUsersPermission = Permission::where('name', 'download users')->first();
 
-        // Assign permissions to roles
+        // Assign permissions to admin role
         $adminRole->givePermissionTo([
             $assignRolesPermission,
             $deleteUsersPermission,
             $restoreUsersPermission,
-            // Add other permissions here as needed
-        ]);
+            $createTemplatesPermission,
+            $sendTemplatesPermission,
+            $trackTemplatesPermission,
+            $addMediasPermission,
+            $downloadUsersPermission,
+            ]);
+        // Assign permissions to editor role
 
-        // Repeat the same for other roles...
+        $editorRole->givePermissionTo([
+            $createTemplatesPermission,
+            $sendTemplatesPermission,
+            $trackTemplatesPermission,
+            $addMediasPermission,
+            $downloadUsersPermission,
+
+        ]);
     }
 }
 

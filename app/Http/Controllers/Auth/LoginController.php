@@ -42,14 +42,25 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/writerDashboard');
+            // Get the authenticated user
+            $user = Auth::user();
+            //dd($user->getRoleNames());
+
+            // Check the user's role and redirect accordingly
+            if ($user->hasRole('admin')) {
+                return redirect()->route('adminDashboard');
+            } elseif ($user->hasRole('editor')) {
+                return redirect()->route('writerDashboard');
+            }
+
+            // If the user doesn't have any specific role, you can redirect them to a default route
+            return redirect('/home');
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
-
     /**
      * Display the specified resource.
      *
