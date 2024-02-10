@@ -8,6 +8,8 @@ use App\Http\Controllers\Auth\ForgotPasswordLinkController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\EmailListController;
+use App\Http\Controllers\PdfController;
 
 
 
@@ -139,10 +141,9 @@ Route::get('/writerDashboard', function () {
 */
 
 
-
 Route::middleware(['auth', 'can:create templates', 'can:send templates', 'can:track templates',
     'can:add medias', 'can:download users'])->group(function () {
-    ///////                ADD    MEDIA
+    /////////////////////////              ADD    MEDIA                    ///////////////////////////////
     Route::post('/upload', [MediaController::class, 'upload'])->name('upload');
     //Route::post('/uploadImage', [MediaController::class, 'store'])->name('uploadImage');
 
@@ -151,21 +152,24 @@ Route::middleware(['auth', 'can:create templates', 'can:send templates', 'can:tr
     // For rendering the upload form
     Route::get('/media/upload', [MediaController::class,'showMediaForm'])->name('media.upload');
 
-    // For rendering the edit form (assuming you pass the media ID as a parameter)
-    //Route::get('/media/edit', [MediaController::class,'showMediaForm'])->name('media.edit');
 
     // index page of lists of medias
     Route::get('/medias', [MediaController::class,'showMediaList'])->name('media');
     //delete media
     Route::delete('/media/{id}', [MediaController::class,'destroy'])->name('media.delete');
-    //edit media
-    //Route::post('/media/{id}/update', [MediaController::class, 'update'])->name('media.update');
+
+
+    ////////////////////////////////           Display subs           ////////////////////////////////////////
+    Route::get('/subscribers', [EmailListController::class, 'showSubscribers'])->name('subscribers');
+    //generate pdf
+    Route::get('/generate-pdf', [PdfController::class, 'generatePdf'])->name('generate.pdf');
 
 
 
 
 
-    Route::view('/writerSubsList', 'writer.subs')->name('writerSubsList');
+
+    // Route::view('/writerSubsList', 'writer.subs')->name('writerSubsList');
     Route::view('/template', 'writer.template')->name('template');
     Route::view('/templateForm', 'writer.templateForm')->name('addTemplate');
 });
