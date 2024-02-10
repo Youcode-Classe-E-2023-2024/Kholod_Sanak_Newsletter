@@ -7,6 +7,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordLinkController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\MediaController;
+
+
 
 
 
@@ -109,7 +112,11 @@ Route::get('/adminDashboard', function () {
     return view('admin.dashboard');
 })->name('adminDashboard')->middleware('auth', 'role:admin');
 
-
+/*
+|--------------------------------------------------------------------------
+|                                Admin Actions
+|-----------------------------------------------------------------
+*/
 Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore users'])->group(function () {
     Route::view('/usersList', 'admin.users')->name('usersList');
     Route::view('/subsList', 'admin.subs')->name('subsList');
@@ -125,12 +132,46 @@ Route::get('/writerDashboard', function () {
     return view('writer.dashboard');
 })->name('writerDashboard')->middleware('auth', 'role:editor');
 
+/*
+|--------------------------------------------------------------------------
+|                                Writer Actions
+|--------------------------------------------------------------------------
+*/
 
 
-Route::view('/writerSubsList','writer.subs')->name('writerSubsList');
-Route::view('/media','writer.media')->name('media');
-Route::view('/template','writer.template')->name('template');
-Route::view('/templateForm','writer.templateForm')->name('addTemplate');
+
+Route::middleware(['auth', 'can:create templates', 'can:send templates', 'can:track templates',
+    'can:add medias', 'can:download users'])->group(function () {
+    ///////                ADD    MEDIA
+    Route::post('/upload', [MediaController::class, 'upload'])->name('upload');
+    //Route::post('/uploadImage', [MediaController::class, 'store'])->name('uploadImage');
+
+    // form to add media
+     Route::get('/AddMedia', [MediaController::class, 'index'])->name('addMedia');
+    // For rendering the upload form
+    Route::get('/media/upload', [MediaController::class,'showMediaForm'])->name('media.upload');
+
+    // For rendering the edit form (assuming you pass the media ID as a parameter)
+    //Route::get('/media/edit', [MediaController::class,'showMediaForm'])->name('media.edit');
+
+    // index page of lists of medias
+    Route::get('/medias', [MediaController::class,'showMediaList'])->name('media');
+    //delete media
+    Route::delete('/media/{id}', [MediaController::class,'destroy'])->name('media.delete');
+    //edit media
+    //Route::post('/media/{id}/update', [MediaController::class, 'update'])->name('media.update');
+
+
+
+
+
+    Route::view('/writerSubsList', 'writer.subs')->name('writerSubsList');
+    Route::view('/template', 'writer.template')->name('template');
+    Route::view('/templateForm', 'writer.templateForm')->name('addTemplate');
+});
+
+
+
 
 
 

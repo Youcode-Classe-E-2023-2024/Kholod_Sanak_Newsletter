@@ -15,15 +15,10 @@ return new class extends Migration
     {
         Schema::create('medias', function (Blueprint $table) {
             $table->id();
-            $table->string('fileName');
             $table->enum('vid', ['img'])->default('img');
-            $table->string('path');
-
-            $table->unsignedBigInteger('user_id'); // Foreign key column
+            $table->unsignedBigInteger('user_id');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-
             $table->timestamps();
         });
     }
