@@ -22,13 +22,14 @@
             <div class="relative bg-clip-border rounded-xl overflow-hidden bg-transparent text-gray-700 shadow-none m-0 flex items-center justify-between p-6">
 
                 <div></div>
-                <button aria-expanded="false" aria-haspopup="menu" id=":r5:"
+                <a href="{{route('restore')}}" aria-expanded="false" aria-haspopup="menu" id=":r5:"
                         class="relative middle none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" type="button">
-              <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                <svg enable-background="new 0 0 50 50" height="30px" id="Layer_1"
-                     version="1.1" viewBox="0 0 50 50" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="none" height="50" width="50"/><circle cx="43" cy="21" r="2"/><path d="M40,15V1H10v14" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><path d="M40,29v20H10V29H40z" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><path d="M10,40H3  c-1.104,0-2-0.896-2-2V17c0-1.104,0.896-2,2-2h44c1.104,0,2,0.896,2,2v21c0,1.104-0.896,2-2,2h-7" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" x1="35" x2="15" y1="35" y2="35"/><line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" x1="31" x2="15" y1="39" y2="39"/><line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" x1="35" x2="15" y1="43" y2="43"/></svg>
-              </span>
-                </button>
+                    <svg class="text-blue-gray-500 group-hover:text-blue-gray-600 w-8 h-8" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0h48v48h-48z" fill="none"/>
+                        <path d="M25.99 6c-9.95 0-17.99 8.06-17.99 18h-6l7.79 7.79.14.29 8.07-8.08h-6c0-7.73 6.27-14 14-14s14 6.27 14 14-6.27 14-14 14c-3.87 0-7.36-1.58-9.89-4.11l-2.83 2.83c3.25 3.26 7.74 5.28 12.71 5.28 9.95 0 18.01-8.06 18.01-18s-8.06-18-18.01-18zm-1.99 10v10l8.56 5.08 1.44-2.43-7-4.15v-8.5h-3z"/>
+                    </svg>
+                    <span class="absolute left-0 -bottom-8 text-xs text-blue-gray-600 opacity-0 group-hover:opacity-100">Restore deleted users</span>
+                </a>
             </div>
             <div class="p-6 overflow-x-scroll px-0 pt-0 pb-2">
 {{--                table--}}
@@ -41,6 +42,11 @@
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
                             <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Roles</p>
                         </th>
+{{--                        assign role--}}
+                        <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
+                            <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Assign Role</p>
+                        </th>
+{{--                        action--}}
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
                             <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Action</p>
                         </th>
@@ -88,6 +94,25 @@
                                     </form>
                                 </div>
                             </td>
+{{--                            delete user--}}
+                            <td>
+                                @if($user->trashed())
+                                    <form action="{{ route('users.restore', $user->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit">Restore</button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                @endif
+                            </td>
+
+
+
                         </tr>
                     @endforeach
                     </tbody>
