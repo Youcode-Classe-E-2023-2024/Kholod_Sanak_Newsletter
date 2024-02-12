@@ -57,7 +57,6 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        // Validate the incoming request if necessary
         // Update the user's role based on the request data
         $user->syncRoles([$request->role]);
 
@@ -71,8 +70,31 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($userId)
     {
-        //
+        $user = User::findOrFail($userId);
+
+        if ($user->trashed()) {
+            $user->restore();
+            return redirect()->back()->with('success', 'User restored successfully');
+        } else {
+            $user->delete();
+            return redirect()->back()->with('success', 'User deleted successfully');
+        }
+    }
+
+
+    public function trashed()
+    {
+        $trashedUsers = User::onlyTrashed()->get();
+        return view('admin.restoredUsers', compact('trashedUsers'));
+    }
+
+    public function restore($userId)
+    {
+        $user = User::onlyTrashed()->findOrFail($userId);
+        $user->restore();
+
+        return redirect('usersList');
     }
 }
