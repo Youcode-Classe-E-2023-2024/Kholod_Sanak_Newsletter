@@ -127,8 +127,16 @@ Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore 
     Route::get('/usersList', [UserController::class, 'index'])->name('usersList');
     ////////////////////            change users role                ///////////////////////////////
     Route::put('/users/{user}', [UserController::class, 'update'])->name('updateUserRole');
+    /////////////////////////          SOFT DELETE             ////////////////////////////////
+    Route::delete('/users/{userId}', [UserController::class, 'destroy'])->name('users.destroy');
 
-    //Route::view('/usersList', 'admin.users')->name('usersList');
+    //restore users interface
+    Route::get('/admin/restored-users', [UserController::class, 'trashed'])->name('restore');
+    //restore method
+    Route::put('/users/{userId}/restore', [UserController::class, 'restore'])->name('users.restore');
+
+
+
 
     Route::view('/subsList', 'admin.subs')->name('subsList');
     Route::view('/templates', 'admin.template')->name('templates');
