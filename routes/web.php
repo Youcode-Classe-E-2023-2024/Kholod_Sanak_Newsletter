@@ -136,11 +136,17 @@ Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore 
     Route::put('/users/{userId}/restore', [UserController::class, 'restore'])->name('users.restore');
 
 
+    //////////////////////////           Show subs          //////////////////////////////////////////
+   Route::get('/subsList', [EmailListController::class, 'showSubscribers'])->name('subsList');
 
 
-    Route::view('/subsList', 'admin.subs')->name('subsList');
+
+    //Route::view('/subsList', 'admin.subs')->name('subsList');
     Route::view('/templates', 'admin.template')->name('templates');
 });
+
+
+
 /*
 |--------------------------------------------------------------------------
 |                                Writer Dashboard
