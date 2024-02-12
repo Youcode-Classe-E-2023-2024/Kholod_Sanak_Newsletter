@@ -35,56 +35,64 @@
                 <table class="w-full min-w-[640px] table-auto">
                     <thead>
                     <tr>
-{{--                        user names--}}
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
                             <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Names</p>
                         </th>
-{{--                        roles--}}
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
                             <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Roles</p>
                         </th>
-{{--                        action--}}
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
                             <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Action</p>
                         </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-{{--                        names--}}
-                        <td class="py-3 px-5 border-b border-blue-gray-50">
-                            <div class="flex items-center gap-4">
-                                <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">Material XD Version</p>
-                            </div>
-                        </td>
-{{--                        Roles--}}
-                        <td class="py-3 px-5 border-b border-blue-gray-50">
-                            <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">$14,000</p>
-                        </td>
-{{--                        Action--}}
-                        <td class="py-3 px-5 border-b border-blue-gray-50">
-                            <div class="w-10/12 px-2">
-                                <select name="role">
-                                    <option>Admin</option>
-                                    <option>Redactor</option>
-                                </select>
-                                <button type="submit" class="mt-2 px-2 py-1  text-white  cursor-pointer">
-                                    <svg height="24" version="1.1" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><g transform="translate(0 -1028.4)"><path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" fill="#27ae60" transform="translate(0 1029.4)"/><path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" fill="#2ecc71" transform="translate(0 1028.4)"/><path d="m16 1037.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#27ae60"/><path d="m16 1036.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#ecf0f1"/></g></svg>
+                    @foreach($users as $user)
+                        <tr>
+                            <td class="py-3 px-5 border-b border-blue-gray-50">
+                                <div class="flex items-center gap-4">
+                                    <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">{{ $user->name }}</p>
+                                </div>
+                            </td>
+                            <td class="py-3 px-5 border-b border-blue-gray-50">
+                                <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">
+                                    @foreach($user->roles as $role)
+                                        {{ $role->name }}@if(!$loop->last),@endif
+                                    @endforeach
+                                </p>
+                            </td>
+                            <td class="py-3 px-5 border-b border-blue-gray-50">
+                                <div class="w-10/12 px-2">
+{{--                                    form to update--}}
+                                    <form method="POST" action="{{ route('updateUserRole', ['user' => $user->id]) }}">
+                                        @csrf
+                                        @method('PUT')
 
-                                </button>
-{{--                                <a href="#" class="text-green-500 hover:text-green-600 ">--}}
-{{--                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
-{{--                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />--}}
-{{--                                    </svg>--}}
-{{--                                    <p>Assign Role</p>--}}
-{{--                                </a>--}}
-                            </div>
-                        </td>
-                    </tr>
-
-
+                                        <select name="role">
+                                            @foreach($allRoles as $role)
+                                                <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>
+                                                    {{ $role->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    <button type="submit" class="mt-2 px-2 py-1 text-white cursor-pointer">
+                                        <svg height="24" version="1.1" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                                            <g transform="translate(0 -1028.4)">
+                                                <path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" fill="#27ae60" transform="translate(0 1029.4)"/>
+                                                <path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" fill="#2ecc71" transform="translate(0 1028.4)"/>
+                                                <path d="m16 1037.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#27ae60"/>
+                                                <path d="m16 1036.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#ecf0f1"/>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>
