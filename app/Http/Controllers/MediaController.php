@@ -63,7 +63,8 @@ class MediaController extends Controller
 
         // Create a new media instance and associate it with the user
         $media = Medias::create([
-            "user_id" => $userId
+            "user_id" => $userId,
+
         ]);
 
         // Iterate over each uploaded file and add it to the media collection
@@ -71,14 +72,15 @@ class MediaController extends Controller
             $storedFile = $file->store('uploads');
 
             // Add the stored file to the media collection
-            $media->addMedia(storage_path('app/' . $storedFile))->toMediaCollection();        }
+            $media->addMedia(storage_path('app/' . $storedFile))->toMediaCollection();
+        }
 
         // Redirect back with success message
         return redirect()->route('media')->with('success', 'Files uploaded successfully.');
     }
 
     // Show Medias
-    public function showMediaList()
+    public function showMediaList1()
     {
         // Fetch and pass the list of media to the view
         $mediaList = Medias::all();
@@ -90,6 +92,37 @@ class MediaController extends Controller
 
         return view('writer.media', compact('mediaList', 'mediaNames'));
     }
+
+
+    public function showMediaList()
+    {
+        $userId = Auth::id();
+
+        // Retrieve all instances of Medias associated with the current user
+        $userMedias = Medias::where('user_id', $userId)->get();
+
+        // Create an empty array to store all media items
+        $mediaList = [];
+
+        // Loop through each instance of user's Medias
+        foreach ($userMedias as $media) {
+            // Get the media associated with the current instance
+            $mediaItems = $media->getMedia();
+
+            // Merge the media items into the $mediaList array
+            $mediaList = array_merge($mediaList, $mediaItems->all());
+        }
+
+        // Now $mediaList contains all media items associated with all users
+
+        // Pass $mediaList to the view for rendering
+        return view('writer.media', compact('mediaList'));
+    }
+
+
+
+
+
 
     // delete Media
     public function destroy($id)
