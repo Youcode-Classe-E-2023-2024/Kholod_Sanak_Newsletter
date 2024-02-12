@@ -39,35 +39,38 @@
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
                             <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Media</p>
                         </th>
-{{--                        --}}{{-- Created at --}}
-{{--                        <th class="border-b border-blue-gray-50 py-3 px-6 text-left">--}}
-{{--                            <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Created at</p>--}}
-{{--                        </th>--}}
-                        {{-- Action --}}
+{{--                         Created at--}}
+                        <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
+                            <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Created at</p>
+                        </th>
+{{--                         Action--}}
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
                             <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Action</p>
                         </th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($mediaList as $index => $media)
+                    @foreach($mediaList as  $mediaItem)
                         <tr>
                             {{-- Media --}}
                             <td class="py-3 px-5 border-b border-blue-gray-50">
                                 <div class="flex items-center gap-4">
-                                    <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">{{ $mediaNames[$index] }}</p>
+                                    {{-- Display the media name or file name --}}
+                                    <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">{{ Str::limit($mediaItem->name, 10) }}
+                                    </p>
                                 </div>
                             </td>
-{{--                            --}}{{-- Created at --}}
-{{--                            <td class="py-3 px-5 border-b border-blue-gray-50">--}}
-{{--                                <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">{{ $media->created_at }}</p>--}}
-{{--                            </td>--}}
+                            {{-- Created at --}}
+                            <td class="py-3 px-5 border-b border-blue-gray-50">
+                                {{-- Display the created_at timestamp --}}
+                                <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">{{ $mediaItem->created_at }}</p>
+                            </td>
                             {{-- Action--}}
                             <td class="py-3 px-5 border-b border-blue-gray-50">
                                 <!-- Add delete and modify buttons -->
                                 <div class="flex items-center gap-4">
                                     <!-- Delete button -->
-                                    <form action="{{ route('media.delete', ['id' => $media->id]) }}" method="POST">
+                                    <form action="{{ route('media.delete', ['id' => $mediaItem->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
