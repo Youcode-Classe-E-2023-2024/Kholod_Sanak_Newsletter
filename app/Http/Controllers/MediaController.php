@@ -14,29 +14,6 @@ class MediaController extends Controller
     }
 
 
-//    public function showMediaForm(Request $request)
-//    {
-//        $id = $request->input('id');
-//
-//        if ($id === null) {
-//            // If no ID is provided, it's a new media upload form
-//            $isUpload = true;
-//            return view('media.addMedia', compact('isUpload'));
-//        } else {
-//            // If an ID is provided, it's for editing an existing media
-//            $media = Medias::find($id);
-//
-//            if ($media) {
-//                // If the media is found, show the edit form
-//                $isUpload = false;
-//                return view('media.addMedia', compact('isUpload', 'media'));
-//            } else {
-//                // Handle the case where the media with the given ID is not found
-//                return redirect()->route('media')->with('error', 'Media not found.');
-//            }
-//        }
-//    }
-
 
 
 
