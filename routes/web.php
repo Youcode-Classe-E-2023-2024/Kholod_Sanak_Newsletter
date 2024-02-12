@@ -10,6 +10,7 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\EmailListController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\UserController;
 
 
 
@@ -121,7 +122,14 @@ Route::get('/adminDashboard', function () {
 |-----------------------------------------------------------------
 */
 Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore users'])->group(function () {
-    Route::view('/usersList', 'admin.users')->name('usersList');
+
+    ////////////////////            users list                ///////////////////////////////
+    Route::get('/usersList', [UserController::class, 'index'])->name('usersList');
+    ////////////////////            change users role                ///////////////////////////////
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('updateUserRole');
+
+    //Route::view('/usersList', 'admin.users')->name('usersList');
+
     Route::view('/subsList', 'admin.subs')->name('subsList');
     Route::view('/templates', 'admin.template')->name('templates');
 });
@@ -164,9 +172,6 @@ Route::middleware(['auth', 'can:create templates', 'can:send templates', 'can:tr
     Route::get('/subscribers', [EmailListController::class, 'showSubscribers'])->name('subscribers');
     //generate pdf
     Route::get('/generate-pdf', [PdfController::class, 'generatePdf'])->name('generate.pdf');
-
-
-
 
 
 
