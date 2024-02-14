@@ -27,7 +27,7 @@ class EmailListController extends Controller
         }
     }
 
-    
+
 
 
 

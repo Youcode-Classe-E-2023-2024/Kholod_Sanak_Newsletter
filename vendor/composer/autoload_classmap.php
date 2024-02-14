@@ -35,6 +35,7 @@ return array(
     'App\\Mail\\UserSubscribedMessage' => $baseDir . '/app/Mail/UserSubscribedMessage.php',
     'App\\Models\\EmailList' => $baseDir . '/app/Models/EmailList.php',
     'App\\Models\\Medias' => $baseDir . '/app/Models/Medias.php',
+    'App\\Models\\Newsletter' => $baseDir . '/app/Models/Newsletter.php',
     'App\\Models\\Permission' => $baseDir . '/app/Models/Permission.php',
     'App\\Models\\Role' => $baseDir . '/app/Models/Role.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',

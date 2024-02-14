@@ -39,11 +39,8 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('home');
 });
-Route::get('/home',[NewsletterController
-::class, 'index'])->name('home');
-
-Route::post('/subscribe',[NewsletterController
-::class,'subscribe']);
+Route::get('/home',[NewsletterController::class, 'index'])->name('home');
+Route::post('/subscribe',[NewsletterController::class,'subscribe']);
 
 /*
 |--------------------------------------------------------------------------
@@ -122,7 +119,6 @@ Route::get('/adminDashboard', function () {
 |-----------------------------------------------------------------
 */
 Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore users'])->group(function () {
-
     ////////////////////            users list                ///////////////////////////////
     Route::get('/usersList', [UserController::class, 'index'])->name('usersList');
     ////////////////////            change users role                ///////////////////////////////
@@ -139,11 +135,12 @@ Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore 
     //////////////////////////           Show subs          //////////////////////////////////////////
    Route::get('/subsList', [EmailListController::class, 'showSubscribers'])->name('subsList');
 
-
-
     //Route::view('/subsList', 'admin.subs')->name('subsList');
     Route::view('/templates', 'admin.template')->name('templates');
 });
+
+
+
 
 
 
@@ -163,9 +160,9 @@ Route::get('/writerDashboard', function () {
 |--------------------------------------------------------------------------
 */
 
-
 Route::middleware(['auth', 'can:create templates', 'can:send templates', 'can:track templates',
     'can:add medias', 'can:download users'])->group(function () {
+
     /////////////////////////              ADD    MEDIA                    ///////////////////////////////
     Route::post('/upload', [MediaController::class, 'upload'])->name('upload');
     //Route::post('/uploadImage', [MediaController::class, 'store'])->name('uploadImage');
@@ -173,8 +170,7 @@ Route::middleware(['auth', 'can:create templates', 'can:send templates', 'can:tr
     // form to add media
      Route::get('/AddMedia', [MediaController::class, 'index'])->name('addMedia');
     // For rendering the upload form
-    Route::get('/media/upload', [MediaController::class,'showMediaForm'])->name('media.upload');
-
+    //Route::get('/media/upload', [MediaController::class,'showMediaForm'])->name('media.upload');
 
     // index page of lists of medias
     Route::get('/medias', [MediaController::class,'showMediaList'])->name('media');
@@ -190,8 +186,20 @@ Route::middleware(['auth', 'can:create templates', 'can:send templates', 'can:tr
 
 
     // Route::view('/writerSubsList', 'writer.subs')->name('writerSubsList');
-    Route::view('/template', 'writer.template')->name('template');
+    //////////////////////////////             Create newsletter             /////////////////////////////////////
+    Route::post('add/template', [NewsletterController::class, 'save'])->name('save_newsletter_template');
+    // show lists of template
+    Route::get('/template', [NewsletterController::class, 'index'])->name('template');
+
+    //template form
     Route::view('/templateForm', 'writer.templateForm')->name('addTemplate');
+    //edit template
+//  Route::get('/newsletter/edit/{id}', 'NewsletterController@edit')->name('edit_newsletter_template');
+    //send template
+    Route::post('/newsletter/send/{id}', [NewsletterController::class,'send'])->name('send_newsletter_template');
+
+   // Route::get('/send',[NewsletterController::class, 'display'])->name('display');
+    //Route::post('/send/test', [NewsletterController::class,'sendTry'])->name('test');
 });
 
 

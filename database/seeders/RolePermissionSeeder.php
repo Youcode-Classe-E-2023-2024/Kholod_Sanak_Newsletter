@@ -32,6 +32,8 @@ class RolePermissionSeeder extends Seeder
         $addMediasPermission = Permission::where('name', 'add medias')->first();
         $downloadUsersPermission = Permission::where('name', 'download users')->first();
 
+
+
         // Assign permissions to admin role
         $adminRole->givePermissionTo([
             $assignRolesPermission,
@@ -43,7 +45,6 @@ class RolePermissionSeeder extends Seeder
             $addMediasPermission,
             $downloadUsersPermission,
             ]);
-        // Assign permissions to editor role
 
         $editorRole->givePermissionTo([
             $createTemplatesPermission,

@@ -25,9 +25,9 @@ class PermissionSeeder extends Seeder
 
         Permission::firstOrCreate(['name' => 'create templates']);
         Permission::firstOrCreate(['name' => 'send templates']);
-        Permission::firstOrCreate(['name' => 'track  templates']);
-        Permission::firstOrCreate(['name' => 'add  medias']);
-        Permission::firstOrCreate(['name' => 'download  users']);
+        Permission::firstOrCreate(['name' => 'track templates']);
+        Permission::firstOrCreate(['name' => 'add medias']);
+        Permission::firstOrCreate(['name' => 'download users']);
 
 
     }

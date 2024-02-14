@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->string('contenu');
-            $table->date('dateEnvoi');
-            $table->enum('deleted', ['restaured'])->default('restaured');
+            $table->date('dateEnvoi')->nullable();
+            $table->enum('status', ['sent', 'not_sent'])->default('not_sent');
             $table->timestamps();
-            $table->unsignedBigInteger('user_id'); // Foreign key column
+            $table->unsignedBigInteger('user_id');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

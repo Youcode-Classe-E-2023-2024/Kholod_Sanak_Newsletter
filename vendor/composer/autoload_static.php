@@ -649,6 +649,7 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Mail\\UserSubscribedMessage' => __DIR__ . '/../..' . '/app/Mail/UserSubscribedMessage.php',
         'App\\Models\\EmailList' => __DIR__ . '/../..' . '/app/Models/EmailList.php',
         'App\\Models\\Medias' => __DIR__ . '/../..' . '/app/Models/Medias.php',
+        'App\\Models\\Newsletter' => __DIR__ . '/../..' . '/app/Models/Newsletter.php',
         'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',

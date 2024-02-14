@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Medias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaController extends Controller
 {
     public function index()
     {
+        //dd(asset("storage/ctm.png"));
         return view('media.addMedia');
     }
 
