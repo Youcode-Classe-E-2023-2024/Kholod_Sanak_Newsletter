@@ -31,52 +31,81 @@
             </div>
             <div class="p-6 overflow-x-scroll px-0 pt-0 pb-2">
                 {{--                table--}}
+                {{-- table --}}
                 <table class="w-full min-w-[640px] table-auto">
                     <thead>
                     <tr>
-                        {{--                        template--}}
+                        {{-- template --}}
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
                             <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Template</p>
                         </th>
-                        {{--                        created at--}}
+                        {{-- created at --}}
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
                             <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Created at</p>
                         </th>
-                        {{--                        Action--}}
+                        {{-- status --}}
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
-                            <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400"> Action</p>
+                            <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Status</p>
+                        </th>
+                        {{-- Action --}}
+                        <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
+                            <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Action</p>
                         </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        {{--                        media--}}
-                        <td class="py-3 px-5 border-b border-blue-gray-50">
-                            <div class="flex items-center gap-4">
-                                <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">Material XD Version</p>
-                            </div>
-                        </td>
-                        {{--                        created at--}}
-                        <td class="py-3 px-5 border-b border-blue-gray-50">
-                            <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">$14,000</p>
-                        </td>
-{{--                        action--}}
-                        <td>
-                            <button type="submit" class="mt-2 px-2 py-1  text-white  cursor-pointer">
-                                <svg height="24" version="1.1" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><g transform="translate(0 -1028.4)"><path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" fill="#27ae60" transform="translate(0 1029.4)"/><path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" fill="#2ecc71" transform="translate(0 1028.4)"/><path d="m16 1037.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#27ae60"/><path d="m16 1036.4-6 6-2.5-2.5-2.125 2.1 2.5 2.5 2 2 0.125 0.1 8.125-8.1-2.125-2.1z" fill="#ecf0f1"/></g></svg>
-
-                            </button>
-                        </td>
-
-                    </tr>
-
-
+                    @foreach($newsletters as $newsletter)
+                        <tr>
+                            {{-- media --}}
+                            <td class="py-3 px-5 border-b border-blue-gray-50">
+                                <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">{{ $newsletter->titre }}</p>
+                            </td>
+                            {{-- created at --}}
+                            <td class="py-3 px-5 border-b border-blue-gray-50">
+                                <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">{{ $newsletter->created_at }}</p>
+                            </td>
+                            {{-- status --}}
+                            <td class="py-3 px-5 border-b border-blue-gray-50">
+                                <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">{{ $newsletter->status }}</p>
+                            </td>
+                            {{-- action --}}
+                            <td>
+                                <div class="flex gap-2">
+                                    <form>
+                                        <button type="submit" class="mt-2 px-2 py-1 bg-blue-500 text-white font-bold rounded hover:bg-blue-700 cursor-pointer">
+                                            Edit
+                                        </button>
+                                    </form>
+                                    <form method="post" action="{{ route('send_newsletter_template', ['id' => $newsletter->id]) }}">
+                                        @csrf
+                                        <button type="submit" class="mt-2 px-2 py-1 bg-green-500 text-white font-bold rounded hover:bg-green-700 cursor-pointer">
+                                            Send
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>
 </div>
 </div>
+
+<script>
+    {{--function editTemplate(newsletterId) {--}}
+    {{--    // Redirect to edit route with the newsletter ID--}}
+    {{--    window.location.href = "{{ route('edit_newsletter_template', ['id' => '']) }}/" + newsletterId;--}}
+    {{--}--}}
+
+    {{--function sendTemplate(newsletterId) {--}}
+    {{--    // Redirect to send route with the newsletter ID--}}
+    {{--    window.location.href = "{{ route('send_newsletter_template', ['id' => '']) }}".replace('','/') + newsletterId;--}}
+    {{--}--}}
+</script>
+
 </body>
 </html>
