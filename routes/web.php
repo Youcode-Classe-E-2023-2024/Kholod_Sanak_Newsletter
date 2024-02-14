@@ -38,7 +38,7 @@ use App\Http\Controllers\UserController;
 */
 Route::get('/', function () {
     return view('home');
-});
+})->middleware('auth');
 Route::get('/home',[NewsletterController::class, 'index'])->name('home');
 Route::post('/subscribe',[NewsletterController::class,'subscribe']);
 

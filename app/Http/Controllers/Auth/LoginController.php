@@ -53,8 +53,7 @@ class LoginController extends Controller
                 return redirect()->route('writerDashboard');
             }
 
-            // If the user doesn't have any specific role, you can redirect them to a default route
-            return redirect('/home');
+            return redirect('/');
         }
 
         return back()->withErrors([
