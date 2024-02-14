@@ -12,7 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "spatie/laravel-medialibrary": "^10.15",
-        "spatie/laravel-newsletter": "^4.11",
+        "spatie/laravel-newsletter": "*",
         "spatie/laravel-permission": "^6.3"
     },
     "require-dev": {
