@@ -13,10 +13,26 @@
     <!-- Initialize TinyMCE -->
     <script>
         tinymce.init({
-            selector: '#myTextarea', // Replace 'myTextarea' with the ID of your textarea
+            selector: '#myTextarea',
             plugins: 'advlist autolink lists link image charmap print preview anchor',
-            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image'
+            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image',
+            automatic_uploads: true,
+            file_picker_types: 'image',
+            file_picker_callback: function(callback, value, meta) {
+                // Open a dialog to prompt the user to enter the image filename or URL
+                var imageUrl = prompt('Enter the image URL');
+
+                // Check if imageUrl is not null and not an empty string
+                if (imageUrl !== null && imageUrl.trim() !== "") {
+                    // Join the entered image URL with the base prompt URL
+                    var fullImageUrl = 'http://127.0.0.1:8000/storage/' + imageUrl;
+
+                    // Call the callback function with the full image URL
+                    callback(fullImageUrl, { text: imageUrl });
+                }
+            }
         });
+
     </script>
 
 </head>
@@ -33,22 +49,20 @@
                     <div class="lg:col-span-2">
 
                         <form method="post" enctype="multipart/form-data"
-                              action="#">
+                              action="{{route('save_newsletter_template')}}">
                             @csrf
-
 
                             <div class="grid gap-4 gap-y-2 text-sm ">
 {{--                                template title--}}
                                 <div class="md:col-span-3">
                                     <label for="title">Template Title</label>
-                                    <input type="text" id="title" name="name" placeholder="Enter your Product Name"
+                                    <input type="text" id="titre" name="titre" placeholder="Enter your Product Name"
                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"/>
                                 </div>
 
                                 <!-- content -->
                                 <div class="md:col-span-3">
-                                    <textarea id="myTextarea"></textarea>
-
+                                    <textarea id="myTextarea" name="contenu"></textarea>
 
                                 </div>
                             </div>
@@ -62,6 +76,7 @@
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
