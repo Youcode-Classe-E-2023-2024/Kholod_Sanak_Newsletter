@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Mail\Message;
-use Swift_TransportException;
+use Illuminate\Support\Str;
 
 
 //use Symfony\Component\Mime\Message;
@@ -39,6 +39,39 @@ class NewsletterController extends Controller
 
         return back();
     }
+
+    public function unsubscribe1(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'token' => 'required|string',
+        ]);
+
+        // Find the subscriber by token
+        $subscriber = EmailList::where('unsubscribe_token', $request->token)->first();
+
+        if ($subscriber) {
+            $subscriber->status = 'unsub';
+            $subscriber->save();
+
+            return redirect()->back()->with('success', 'You have successfully unsubscribed.');
+        }
+        return redirect()->back()->with('error', 'Subscriber not found.');
+    }
+
+    public function unsubscribe($token)
+    {
+        $subscriber = EmailList::where('unsubscribe_token', $token)->first();
+
+        if ($subscriber) {
+            $subscriber->status = 'unsub';
+            $subscriber->save();
+            return redirect()->route('unsubscribe.success')->with('success', 'You have been unsubscribed successfully.');
+        } else {
+            return redirect()->route('unsubscribe.error')->with('error', 'Invalid unsubscribe token.');
+        }
+    }
+
 
 
     public function save(Request $request)
@@ -77,51 +110,51 @@ class NewsletterController extends Controller
 
     public function send($id)
     {
-
         $newsletter = Newsletter::findOrFail($id);
 
-        $subscribers = EmailList::all();
+        $subscribers = EmailList::where('status', 'sub')->get();
 
         foreach ($subscribers as $subscriber) {
-            // Send the newsletter to the subscriber's email address
-            $this->sendNewsletterToSubscriber($newsletter, $subscriber);
+            $unsubscribeToken = Str::random(100);
+            $subscriber->unsubscribe_token = $unsubscribeToken;
+            $subscriber->save();
+
+            $unsubscribeLink = route('unsubscribe', ['token' => $unsubscribeToken]);
+
+            $this->sendNewsletterToSubscriber($newsletter, $subscriber, $unsubscribeLink);
         }
-         $newsletter->status ='sent';
+
+        $newsletter->status ='sent';
         $newsletter->save();
-        //dd($test);
+
         return redirect()->route('template')->with('success', 'Newsletter sent successfully.');
     }
 
 
 
 
-    private function sendNewsletterToSubscriber($newsletter, $subscriber)
+    private function sendNewsletterToSubscriber($newsletter, $subscriber, $unsubscribeLink)
     {
-        // Retrieve subscriber's email address
         $recipientEmail = $subscriber->email;
-
         $textContent = strip_tags($newsletter->contenu);
 
-        $textPart = new TextPart($textContent, 'utf-8');
-
         try {
-            Mail::html([], function(Message $message) use ($recipientEmail, $textPart) {
+            Mail::send([], [], function(Message $message) use ($recipientEmail, $textContent, $unsubscribeLink) {
                 $message->to($recipientEmail);
-                $message->subject('Welcome to our website');
-                $message->setBody($textPart, 'text/html');
+                $message->subject('Your Newsletter Subscription');
+                $message->html($textContent . "<br><a href=\"$unsubscribeLink\">Unsubscribe</a>");
             });
 
-            // Email sent successfully
-            // You may want to log this information or perform any other action
             Log::info('Newsletter sent successfully to: ' . $recipientEmail);
         } catch (\Exception $e) {
-            // Handle email sending failure gracefully
-            // Log the error or perform any necessary actions
-            // You can also access the failed recipients using $recipientEmail
             Log::error('Failed to send newsletter to: ' . $recipientEmail . '. Error: ' . $e->getMessage());
         }
     }
 
 
+    public function display()
+    {
+        return view('success');
+    }
 
 }
