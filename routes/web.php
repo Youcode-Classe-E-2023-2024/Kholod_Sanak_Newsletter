@@ -38,9 +38,29 @@ use App\Http\Controllers\UserController;
 */
 Route::get('/', function () {
     return view('home');
-})->middleware('auth');
-Route::get('/home',[NewsletterController::class, 'index'])->name('home');
+})->name('home');
+//Route::get('/home',[NewsletterController::class, 'index'])->name('home');
+
+
+/*
+|--------------------------------------------------------------------------
+|                        Subscription and Unsubscription
+|--------------------------------------------------------------------------
+*/
 Route::post('/subscribe',[NewsletterController::class,'subscribe']);
+Route::post('/unsubscribe', [NewsletterController::class, 'unsubscribe'])->name('unsubscribe');
+Route::get('/unsubscribe/{token}',  [NewsletterController::class, 'unsubscribe'])->name('unsubscribe');
+//Route::get('/unsubscribe/success', function () {
+//    return view('unsubscribe.success');
+//})->name('unsubscribe.success');
+
+Route::get('/unsubscribe/error', function () {
+    return view('unsubscribe.error');
+})->name('unsubscribe.error');
+
+Route::get('/unsubscribe/success',[NewsletterController::class, 'display'])->name('unsubscribe.success');
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -198,7 +218,6 @@ Route::middleware(['auth', 'can:create templates', 'can:send templates', 'can:tr
     //send template
     Route::post('/newsletter/send/{id}', [NewsletterController::class,'send'])->name('send_newsletter_template');
 
-   // Route::get('/send',[NewsletterController::class, 'display'])->name('display');
     //Route::post('/send/test', [NewsletterController::class,'sendTry'])->name('test');
 });
 
