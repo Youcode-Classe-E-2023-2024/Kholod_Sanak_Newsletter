@@ -26,8 +26,15 @@ use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 class NewsletterController extends Controller
 {
     public function index(){
-        $newsletters = Newsletter::all();
-        return view('writer.template', compact('newsletters'));;
+        $newsletters = Newsletter::orderBy('created_at', 'desc')->paginate(6);
+        return view('writer.template', compact('newsletters'));
+
+    }
+
+
+    public function chouf(){
+        $newsletters = Newsletter::orderBy('created_at', 'desc')->paginate(6);
+        return view('admin.template', compact('newsletters'));
     }
 
     public function subscribe(Request $request){

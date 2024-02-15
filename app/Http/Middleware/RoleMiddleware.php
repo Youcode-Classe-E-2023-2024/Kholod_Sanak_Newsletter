@@ -11,7 +11,7 @@ class RoleMiddleware
     public function handle($request, Closure $next, $role)
     {
         if (!Auth::check() || !$request->user()->hasRole($role)) {
-            return redirect()->route('unauthorized');
+            return abort(404);
         }
 
         return $next($request);

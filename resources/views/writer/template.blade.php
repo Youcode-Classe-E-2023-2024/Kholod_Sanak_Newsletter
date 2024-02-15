@@ -24,10 +24,11 @@
                 <div></div>
                 <a href="{{route('addTemplate')}}"
                         class="relative middle none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" type="button">
-              <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                  add template
-{{--               <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#000;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g data-name="307-Email Add" id="_307-Email_Add"><polyline class="cls-1" points="15 27 1 27 1 5 31 5 31 15"/><polyline class="cls-1" points="1 5 16 16 31 5"/><line class="cls-1" x1="25" x2="25" y1="17" y2="27"/><line class="cls-1" x1="30" x2="20" y1="22" y2="22"/></g></svg>              </span>--}}
-                </a>
+{{--              <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">--}}
+{{--                  add template--}}
+                <svg style="enable-background:new 0 0 24 24;" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="info"/><g id="icons">
+                        <path d="M12,1C5.9,1,1,5.9,1,12s4.9,11,11,11s11-4.9,11-11S18.1,1,12,1z M17,14h-3v3c0,1.1-0.9,2-2,2s-2-0.9-2-2v-3H7   c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2h3V7c0-1.1,0.9-2,2-2s2,0.9,2,2v3h3c1.1,0,2,0.9,2,2C19,13.1,18.1,14,17,14z" id="add"/></g></svg>                </a>
             </div>
             <div class="p-6 overflow-x-scroll px-0 pt-0 pb-2">
                 {{--                table--}}
@@ -56,7 +57,7 @@
                     <tbody>
                     @foreach($newsletters as $newsletter)
                         <tr>
-                            {{-- media --}}
+                            {{-- template --}}
                             <td class="py-3 px-5 border-b border-blue-gray-50">
                                 <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">{{ $newsletter->titre }}</p>
                             </td>
@@ -69,13 +70,16 @@
                                 <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">{{ $newsletter->status }}</p>
                             </td>
                             {{-- action --}}
-                            <td>
+                            <td class="py-3 px-5 border-b border-blue-gray-50">
                                 <div class="flex gap-2">
-                                    <form>
+                                    {{-- Edit button --}}
+                                    {{-- <form>
                                         <button type="submit" class="mt-2 px-2 py-1 bg-blue-500 text-white font-bold rounded hover:bg-blue-700 cursor-pointer">
                                             Edit
                                         </button>
-                                    </form>
+                                    </form> --}}
+
+                                    {{-- Send button --}}
                                     <form method="post" action="{{ route('send_newsletter_template', ['id' => $newsletter->id]) }}">
                                         @csrf
                                         <button type="submit" class="mt-2 px-2 py-1 bg-green-500 text-white font-bold rounded hover:bg-green-700 cursor-pointer">
@@ -88,6 +92,11 @@
                     @endforeach
                     </tbody>
                 </table>
+
+                {{ $newsletters->links() }}
+
+
+
 
             </div>
         </div>

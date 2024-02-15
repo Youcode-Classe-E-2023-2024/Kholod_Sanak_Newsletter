@@ -1,6 +1,4 @@
-<?php
-    ?>
-    <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,13 +12,10 @@
 <body>
 <main class="flex min-h-screen w-full items-center justify-center bg-gray-100">
     <!-- component -->
-    <form method="post" action="{{route('test')}}">
-        @csrf
-    <button  type="submit" class="group relative h-12 w-48 overflow-hidden rounded-2xl bg-green-500 text-lg font-bold text-white">
-        Hover me!
-        <div class="absolute inset-0 h-full w-full scale-0 rounded-2xl transition-all duration-300 group-hover:scale-100 group-hover:bg-white/30"></div>
-    </button>
-    </form>
+    @foreach($subscribers as $subscriber)
+        <p>You are receiving this email because you are subscribed to our newsletter.</p>
+        <p>If you wish to unsubscribe, <a href="{{ route('unsubscribe', ['token' => $subscriber->unsubscribe_token]) }}">click here</a>.</p>
+    @endforeach
 </main>
 </body>
 </html>

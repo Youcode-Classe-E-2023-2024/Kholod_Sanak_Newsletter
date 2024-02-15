@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-    <title>Admin Dashboard</title>
+    <title>Writer Dashboard</title>
 </head>
 <body>
 
@@ -22,62 +22,99 @@
             <div class="relative bg-clip-border rounded-xl overflow-hidden bg-transparent text-gray-700 shadow-none m-0 flex items-center justify-between p-6">
 
                 <div></div>
-                <button aria-expanded="false" aria-haspopup="menu" id=":r5:"
-                        class="relative middle none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" type="button">
-              <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                <svg enable-background="new 0 0 50 50" height="30px" id="Layer_1"
-                     version="1.1" viewBox="0 0 50 50" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="none" height="50" width="50"/><circle cx="43" cy="21" r="2"/><path d="M40,15V1H10v14" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><path d="M40,29v20H10V29H40z" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><path d="M10,40H3  c-1.104,0-2-0.896-2-2V17c0-1.104,0.896-2,2-2h44c1.104,0,2,0.896,2,2v21c0,1.104-0.896,2-2,2h-7" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" x1="35" x2="15" y1="35" y2="35"/><line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" x1="31" x2="15" y1="39" y2="39"/><line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" x1="35" x2="15" y1="43" y2="43"/></svg>
-              </span>
-                </button>
+                <a href="{{route('addTemplate')}}"
+                   class="relative middle none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" type="button">
+                    {{--              <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">--}}
+                    {{--                  add template--}}
+                    <svg style="enable-background:new 0 0 24 24;" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="info"/><g id="icons">
+                            <path d="M12,1C5.9,1,1,5.9,1,12s4.9,11,11,11s11-4.9,11-11S18.1,1,12,1z M17,14h-3v3c0,1.1-0.9,2-2,2s-2-0.9-2-2v-3H7   c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2h3V7c0-1.1,0.9-2,2-2s2,0.9,2,2v3h3c1.1,0,2,0.9,2,2C19,13.1,18.1,14,17,14z" id="add"/></g></svg>                </a>
             </div>
             <div class="p-6 overflow-x-scroll px-0 pt-0 pb-2">
                 {{--                table--}}
+                {{-- table --}}
                 <table class="w-full min-w-[640px] table-auto">
                     <thead>
                     <tr>
-                        {{--                        templates--}}
+                        {{-- template --}}
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
-                            <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Templates</p>
+                            <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Template</p>
                         </th>
-                        {{--                        Created by--}}
+                        {{-- created at --}}
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
-                            <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Created by</p>
+                            <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Created at</p>
                         </th>
-                        {{--                        status--}}
+                        {{-- status --}}
                         <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
                             <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Status</p>
                         </th>
-
+                        {{-- Action --}}
+                        <th class="border-b border-blue-gray-50 py-3 px-6 text-left">
+                            <p class="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">Action</p>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        {{--                        Templates--}}
-                        <td class="py-3 px-5 border-b border-blue-gray-50">
-                            <div class="flex items-center gap-4">
-                                <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">Material XD Version</p>
-                            </div>
-                        </td>
-                        {{--                        Created by--}}
-                        <td class="py-3 px-5 border-b border-blue-gray-50">
-                            <div class="flex items-center gap-4">
-                                <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">mememe</p>
-                            </div>
-                        </td>
-                        {{--                        Status--}}
-                        <td class="py-3 px-5 border-b border-blue-gray-50">
-                            <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">$14,000</p>
-                        </td>
+                    @foreach($newsletters as $newsletter)
+                        <tr>
+                            {{-- template --}}
+                            <td class="py-3 px-5 border-b border-blue-gray-50">
+                                <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">{{ $newsletter->titre }}</p>
+                            </td>
+                            {{-- created at --}}
+                            <td class="py-3 px-5 border-b border-blue-gray-50">
+                                <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">{{ $newsletter->created_at }}</p>
+                            </td>
+                            {{-- status --}}
+                            <td class="py-3 px-5 border-b border-blue-gray-50">
+                                <p class="block antialiased font-sans text-xs font-medium text-blue-gray-600">{{ $newsletter->status }}</p>
+                            </td>
+                            {{-- action --}}
+                            <td class="py-3 px-5 border-b border-blue-gray-50">
+                                <div class="flex gap-2">
+                                    {{-- Edit button --}}
+                                    {{-- <form>
+                                        <button type="submit" class="mt-2 px-2 py-1 bg-blue-500 text-white font-bold rounded hover:bg-blue-700 cursor-pointer">
+                                            Edit
+                                        </button>
+                                    </form> --}}
 
-                    </tr>
-
-
+                                    {{-- Send button --}}
+                                    <form method="post" action="{{ route('send_newsletter_template', ['id' => $newsletter->id]) }}">
+                                        @csrf
+                                        <button type="submit" class="mt-2 px-2 py-1 bg-green-500 text-white font-bold rounded hover:bg-green-700 cursor-pointer">
+                                            Send
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
+
+                {{ $newsletters->links() }}
+
+
+
+
             </div>
         </div>
     </div>
 </div>
 </div>
+
+<script>
+    {{--function editTemplate(newsletterId) {--}}
+    {{--    // Redirect to edit route with the newsletter ID--}}
+    {{--    window.location.href = "{{ route('edit_newsletter_template', ['id' => '']) }}/" + newsletterId;--}}
+    {{--}--}}
+
+    {{--function sendTemplate(newsletterId) {--}}
+    {{--    // Redirect to send route with the newsletter ID--}}
+    {{--    window.location.href = "{{ route('send_newsletter_template', ['id' => '']) }}".replace('','/') + newsletterId;--}}
+    {{--}--}}
+</script>
+
 </body>
 </html>

@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\EmailList;
+use App\Models\Medias;
+use App\Models\Newsletter;
+
+
+
 use Spatie\Permission\Models\Role;
 
 
@@ -96,5 +102,38 @@ class UserController extends Controller
         $user->restore();
 
         return redirect('usersList');
+    }
+
+
+
+
+
+    //admin dashboard view
+    public function adminDashboard()
+    {
+        // Retrieve the user count with the 'editor' role
+        $userCount = User::whereHas('roles', function ($query) {
+            $query->where('name', 'editor');
+        })->count();
+
+        $userCount1=  User::whereHas('roles', function ($query) {
+            $query->where('name', 'user');
+        })->count();
+
+        //sub & unsub count
+        $subsCount = EmailList::where('status', '=', 'sub')->count();
+        $unsubCount =  EmailList::where('status', '=', 'unsub')->count();
+
+        // Medias count
+        $mediasCount = Medias::all()->count();
+
+        //Template count
+        $templateCount= Newsletter::all()->count();
+        //unsent
+        $unsentCount= Newsletter::where('status', '=', 'not_sent')->count();
+
+        // Pass the user count to the 'admin.dashboard' view
+        return view('admin.dashboard', compact('userCount','userCount1','subsCount',
+            'unsubCount','mediasCount','templateCount','unsentCount'));
     }
 }

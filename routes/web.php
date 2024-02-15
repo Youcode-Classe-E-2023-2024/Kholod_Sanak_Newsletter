@@ -30,6 +30,11 @@ use App\Http\Controllers\UserController;
 |
 */
 
+/*
+|--------------------------------------------------------------------------
+|                       Emails Pages redirect
+|--------------------------------------------------------------------------
+*/
 Route::get('/unsubscribe/success', function () {
     return view('unsubscribe.success');
 })->name('unsubscribe.success');
@@ -37,6 +42,12 @@ Route::get('/unsubscribe/success', function () {
 Route::get('/unsubscribe/error', function () {
     return view('unsubscribe.error');
 })->name('unsubscribe.error');
+
+//success page email has been sent
+Route::get('/reset-password/success', function () {
+    return view('password.success');
+})->name('password.success');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +71,6 @@ Route::get('/unsubscribe/{token}',  [NewsletterController::class, 'unsubscribe']
 
 
 
-//Route::get('/unsubscribe/success',[NewsletterController::class, 'display'])->name('unsubscribe.success');
 
 
 
@@ -86,10 +96,7 @@ Route::post('/login', [LoginController::class, 'store'])->name('login');
 |                                 enter & send email
 |--------------------------------------------------------------------------
 */
-//success page email has been sent
-Route::get('/reset-password/success', function () {
-    return view('password.success');
-})->name('password.success');
+
 // Route for showing the form to enter the email
 Route::get('/forgot-password', [ForgotPasswordLinkController::class, 'create'])
     ->name('password.request');
@@ -131,9 +138,10 @@ Route::post('/logout', [Logoutcontroller::class, 'destroy'])->name('logout')
 |--------------------------------------------------------------------------
 */
 //redirect admin to the dashboard admin
-Route::get('/adminDashboard', function () {
-    return view('admin.dashboard');
-})->name('adminDashboard')->middleware('auth', 'role:admin');
+//Route::get('/adminDashboard', function () {
+//    return view('admin.dashboard');
+//})->name('adminDashboard')->middleware('auth', 'role:admin');
+Route::get('/admin/dashboard', [UserController::class, 'adminDashboard'])->name('adminDashboard')->middleware('auth', 'role:admin');
 
 /*
 |--------------------------------------------------------------------------
@@ -143,8 +151,10 @@ Route::get('/adminDashboard', function () {
 Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore users'])->group(function () {
     ////////////////////            users list                ///////////////////////////////
     Route::get('/usersList', [UserController::class, 'index'])->name('usersList');
+
     ////////////////////            change users role                ///////////////////////////////
     Route::put('/users/{user}', [UserController::class, 'update'])->name('updateUserRole');
+
     /////////////////////////          SOFT DELETE             ////////////////////////////////
     Route::delete('/users/{userId}', [UserController::class, 'destroy'])->name('users.destroy');
 
@@ -158,7 +168,19 @@ Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore 
    Route::get('/subsList', [EmailListController::class, 'showSubscribers'])->name('subsList');
 
     //Route::view('/subsList', 'admin.subs')->name('subsList');
-    Route::view('/templates', 'admin.template')->name('templates');
+    //Route::view('/templates', 'admin.template')->name('templates');
+
+    ////////////////////////       Templates display      ////////////////////////////////////////
+    Route::get('/templates', [NewsletterController::class, 'chouf'])->name('templates');
+
+    Route::post('add/template', [NewsletterController::class, 'save'])->name('save_template');
+
+    //template form
+    Route::view('/templateForm', 'writer.templateForm')->name('addTemplate');
+    //send template
+    Route::post('/newsletter/send/{id}', [NewsletterController::class,'send'])->name('send_newsletter_template');
+
+
 });
 
 
@@ -208,6 +230,7 @@ Route::middleware(['auth', 'can:create templates', 'can:send templates', 'can:tr
 
 
     // Route::view('/writerSubsList', 'writer.subs')->name('writerSubsList');
+
     //////////////////////////////             Create newsletter             /////////////////////////////////////
     Route::post('add/template', [NewsletterController::class, 'save'])->name('save_newsletter_template');
     // show lists of template
@@ -215,8 +238,6 @@ Route::middleware(['auth', 'can:create templates', 'can:send templates', 'can:tr
 
     //template form
     Route::view('/templateForm', 'writer.templateForm')->name('addTemplate');
-    //edit template
-//  Route::get('/newsletter/edit/{id}', 'NewsletterController@edit')->name('edit_newsletter_template');
     //send template
     Route::post('/newsletter/send/{id}', [NewsletterController::class,'send'])->name('send_newsletter_template');
 
