@@ -32,7 +32,7 @@ class NewsletterController extends Controller
     }
 
 
-    public function chouf(){
+    public function view(){
         $newsletters = Newsletter::orderBy('created_at', 'desc')->paginate(6);
         return view('admin.template', compact('newsletters'));
     }

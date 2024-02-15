@@ -171,15 +171,13 @@ Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore 
     //Route::view('/templates', 'admin.template')->name('templates');
 
     ////////////////////////       Templates display      ////////////////////////////////////////
-    Route::get('/templates', [NewsletterController::class, 'chouf'])->name('templates');
-
+    Route::get('/templates', [NewsletterController::class, 'view'])->name('templates');
     Route::post('add/template', [NewsletterController::class, 'save'])->name('save_template');
 
     //template form
     Route::view('/templateForm', 'writer.templateForm')->name('addTemplate');
     //send template
     Route::post('/newsletter/send/{id}', [NewsletterController::class,'send'])->name('send_newsletter_template');
-
 
 });
 
@@ -194,9 +192,10 @@ Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore 
 |--------------------------------------------------------------------------
 */
 //redirect editor to the dashboard writer
-Route::get('/writerDashboard', function () {
-    return view('writer.dashboard');
-})->name('writerDashboard')->middleware('auth', 'role:editor');
+//Route::get('/writerDashboard', function () {
+//    return view('writer.dashboard');
+//})->name('writerDashboard')->middleware('auth', 'role:editor');
+Route::get('/writer/dashboard', [UserController::class, 'editorDashboard'])->name('writerDashboard')->middleware('auth', 'role:editor');
 
 /*
 |--------------------------------------------------------------------------

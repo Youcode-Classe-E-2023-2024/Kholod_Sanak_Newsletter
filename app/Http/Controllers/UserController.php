@@ -136,4 +136,12 @@ class UserController extends Controller
         return view('admin.dashboard', compact('userCount','userCount1','subsCount',
             'unsubCount','mediasCount','templateCount','unsentCount'));
     }
+
+    public function editorDashboard(){
+        //sub & unsub count
+        $subsCount = EmailList::where('status', '=', 'sub')->count();
+        $unsubCount =  EmailList::where('status', '=', 'unsub')->count();
+        return view('writer.dashboard', compact('subsCount', 'unsubCount'));
+
+    }
 }
