@@ -30,6 +30,13 @@ use App\Http\Controllers\UserController;
 |
 */
 
+Route::get('/unsubscribe/success', function () {
+    return view('unsubscribe.success');
+})->name('unsubscribe.success');
+
+Route::get('/unsubscribe/error', function () {
+    return view('unsubscribe.error');
+})->name('unsubscribe.error');
 
 /*
 |--------------------------------------------------------------------------
@@ -50,15 +57,10 @@ Route::get('/', function () {
 Route::post('/subscribe',[NewsletterController::class,'subscribe']);
 Route::post('/unsubscribe', [NewsletterController::class, 'unsubscribe'])->name('unsubscribe');
 Route::get('/unsubscribe/{token}',  [NewsletterController::class, 'unsubscribe'])->name('unsubscribe');
-//Route::get('/unsubscribe/success', function () {
-//    return view('unsubscribe.success');
-//})->name('unsubscribe.success');
 
-Route::get('/unsubscribe/error', function () {
-    return view('unsubscribe.error');
-})->name('unsubscribe.error');
 
-Route::get('/unsubscribe/success',[NewsletterController::class, 'display'])->name('unsubscribe.success');
+
+//Route::get('/unsubscribe/success',[NewsletterController::class, 'display'])->name('unsubscribe.success');
 
 
 
