@@ -72,12 +72,13 @@
                             {{-- action --}}
                             <td class="py-3 px-5 border-b border-blue-gray-50">
                                 <div class="flex gap-2">
-                                    {{-- Edit button --}}
-                                    {{-- <form>
-                                        <button type="submit" class="mt-2 px-2 py-1 bg-blue-500 text-white font-bold rounded hover:bg-blue-700 cursor-pointer">
-                                            Edit
+{{--                                     delete button --}}
+                                     <form method="post" action="{{ route('delete_template', ['id' => $newsletter->id]) }}">
+                                         @csrf
+                                        <button type="submit" class="mt-2 px-2 py-1 bg-red-500 text-white font-bold rounded hover:bg-red-700 cursor-pointer">
+                                            Delete
                                         </button>
-                                    </form> --}}
+                                    </form>
 
                                     {{-- Send button --}}
                                     <form method="post" action="{{ route('send_newsletter_template', ['id' => $newsletter->id]) }}">
