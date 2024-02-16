@@ -101,17 +101,19 @@ class NewsletterController extends Controller
         ]);
 
         // Redirect to a success page or return a response as needed
-        return redirect()->route('template')->with('success', 'Newsletter created successfully');
+        return redirect()->route('/')->with('success', 'Newsletter created successfully');
     }
 
 
-    public function edit($id)
+    public function deleteNewsletter($id)
     {
-        // Retrieve the newsletter by its ID
         $newsletter = Newsletter::findOrFail($id);
 
-        // Return the view for editing the newsletter with the retrieved data
-        return view('newsletter.edit', compact('newsletter'));
+        // Soft delete the newsletter
+        $newsletter->delete();
+
+        // Redirect or return a response as needed
+        return redirect()->route('templates')->with('success', 'Newsletter deleted successfully');
     }
 
 
@@ -134,7 +136,7 @@ class NewsletterController extends Controller
         $newsletter->status ='sent';
         $newsletter->save();
 
-        return redirect()->route('template')->with('success', 'Newsletter sent successfully.');
+        return redirect()->route('/')->with('success', 'Newsletter sent successfully.');
     }
 
 
