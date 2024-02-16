@@ -1,66 +1,54 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Plateforme de Communication et Marketing - README
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Bienvenue dans la documentation de la plateforme de communication et de marketing, une solution complète développée pour notre client en pleine croissance. Cette plateforme vise à centraliser et rationaliser les opérations en ligne, en mettant l'accent sur la communication, la gestion de l'information et la collaboration au sein de l'équipe.
 
-## About Laravel
+## Fonctionnalités Principales
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. Gestion de Newsletter (Spatie)
+La plateforme intègre le package Spatie Newsletter pour simplifier la création, l'envoi et le suivi des campagnes de newsletters. Les fonctionnalités de gestion des abonnements et des listes de diffusion sont intuitives et conviviales.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 2. Authentification avec Gestion des Rôles (Policies et Guards)
+La sécurité et la confidentialité des données sont assurées par un système d'authentification robuste basé sur les politiques et gardes de Laravel. Trois rôles distincts sont définis : Administrateur, Rédacteur et Membre, chacun ayant des autorisations spécifiques.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 3. Fonctionnalités Forgot Password et Remember Me
+Une expérience utilisateur fluide est garantie avec les fonctionnalités "forgot password" pour la réinitialisation du mot de passe et "remember me" pour la connexion automatique.
 
-## Learning Laravel
+### 4. Media Library (Spatie)
+La gestion de médias est simplifiée avec Spatie Media Library, permettant aux utilisateurs de télécharger, organiser et partager des fichiers multimédias associés à des utilisateurs ou des projets spécifiques.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 5. Soft Delete
+La plateforme intègre la fonctionnalité "soft delete" pour éviter la perte accidentelle de données, marquant les enregistrements comme supprimés plutôt que de les supprimer physiquement de la base de données.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 6. Middleware
+Des middleware sont mis en place pour gérer les autorisations spécifiques aux rôles, assurant que chaque utilisateur accède uniquement aux fonctionnalités autorisées en fonction de son rôle.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 7. Génération PDF
+La plateforme peut générer des fichiers PDF à partir de données spécifiques, offrant des fonctionnalités telles que la création de rapports mensuels sur les performances des campagnes de newsletters ou des récapitulatifs des médias téléchargés sur une période donnée.
 
-## Laravel Sponsors
+### 8. Modélisation avec 3 Rôles
+La base de données est modélisée pour prendre en charge les trois rôles définis (Administrateur, Rédacteur, Membre), assurant une séparation claire des données et des responsabilités.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Modélisation UML
 
-### Premium Partners
+### Diagramme de Classes
+![Diagramme de Classes](modélisation/classe.pdf)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Diagramme de Cas d'Utilisation
+![Diagramme de Cas d'Utilisation](url_vers_l_image_diagramme_utilisation.png)
 
-## Contributing
+## Installation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. Clonez le repository.
+2. Exécutez `composer install` pour installer les dépendances.
+3. Copiez le fichier `.env.example` et renommez-le en `.env`. Configurez la base de données et d'autres variables d'environnement.
+4. Exécutez `php artisan key:generate`.
+5. Exécutez `php artisan migrate` pour créer les tables de la base de données.
+6. Profitez de la plateforme !
 
-## Code of Conduct
+## Contribution
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Les contributions sont les bienvenues. Assurez-vous de lire les directives de contribution avant de commencer. Merci de contribuer à faire de cette plateforme un outil encore plus puissant.
 
-## Security Vulnerabilities
+## Licence
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Ce projet est sous licence [MIT](LICENSE).
