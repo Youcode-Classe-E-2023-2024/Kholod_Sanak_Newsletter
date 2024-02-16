@@ -34,7 +34,7 @@ La base de données est modélisée pour prendre en charge les trois rôles déf
 ![Diagramme de Classes](modelisation/classe.pdf)
 
 ### Diagramme de Cas d'Utilisation
-![Diagramme de Cas d'Utilisation](url_vers_l_image_diagramme_utilisation.png)
+![Diagramme de Cas d'Utilisation](modelisation/use_case_diagram.pdf)
 
 ## Installation
 
