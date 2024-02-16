@@ -179,6 +179,10 @@ Route::middleware(['auth', 'can:assign roles', 'can:delete users', 'can:restore 
     //send template
     Route::post('/newsletter/send/{id}', [NewsletterController::class,'send'])->name('send_newsletter_template');
 
+    //soft delete template
+    Route::post('delete/template/{id}', [NewsletterController::class, 'deleteNewsletter'])->name('delete_template');
+
+
 });
 
 
